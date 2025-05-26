@@ -27,19 +27,27 @@ This is a personal portfolio website built with React and framer-motion for anim
 ## Project Structure
 
 ```
-
-/src
-/components
-\- Navbar.jsx
-\- HeroSection.jsx
-\- AboutMe.jsx
-\- ExperienceSection.jsx
-\- ProjectCard.jsx
-\- ContactForm.jsx
-App.jsx
-index.js
-App.css
-ProjectCard.css
+Portfolio/
+├── backend/                 # Django backend
+│   ├── manage.py
+│   ├── backend/            # Django project folder
+│   ├── contact/            # Django app for contact form
+│   └── requirements.txt
+├── frontend/                # React frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+|   |   |       \- Navbar.jsx
+|   |   |       \- HeroSection.jsx
+|   |   |       \- AboutMe.jsx
+|   |   |       \- ExperienceSection.jsx
+|   |   |       \- ProjectCard.jsx
+|   |   |       \- ContactForm.jsx
+│   │   ├── pages/
+│   │   └── App.js
+│   └── package.json
+├── README.md
+└── .gitignore
 
 ````
 
