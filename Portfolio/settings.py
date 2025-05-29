@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,15 +78,18 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # Load .env file
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Portfolio',
-        'USER': 'root',
-        'PASSWORD': 'Khatri@25',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT", "3306"),
     }
 }
 
@@ -131,6 +135,9 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "https://portfolio-6li4.onrender.com",
+]
 CORS_ALLOW_ALL_ORIGINS = True
 
 STATICFILES_DIRS = [
