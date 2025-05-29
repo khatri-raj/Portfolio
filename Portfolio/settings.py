@@ -26,8 +26,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-ALLOWED_HOSTS = ['portfolio-6li4.onrender.com', 'localhost', '127.0.0.1']
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'your-backend-service.onrender.com']
 
 
 # Application definition
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'Profile',
     'rest_framework',
+    'sslserver',
+
 ]
 
 MIDDLEWARE = [
@@ -61,7 +65,7 @@ ROOT_URLCONF = 'Portfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Profile', 'frontend', 'static', 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,11 +89,11 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # Load .env file
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("DB_NAME", "Portfolio"),
-        'USER': os.getenv("DB_USER", "Portfolio"),
-        'PASSWORD': os.getenv("DB_PASSWORD", "Portfolio"),
-        'HOST': os.getenv("DB_HOST", "localhost"),
-        'PORT': os.getenv("DB_PORT", "3306"),
+        'NAME': env("DB_NAME", default="Portfolio"),
+        'USER': env("DB_USER", default="Portfolio"),
+        'PASSWORD': env("DB_PASSWORD", default="Portfolio"),
+        'HOST': env("DB_HOST", default="localhost"),
+        'PORT': env("DB_PORT", default="3306"),
     }
 }
 
@@ -138,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'Profile' / 'static' / 'build' / 'static',  # static files from React build
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstati
 

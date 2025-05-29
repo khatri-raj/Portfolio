@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn Portfolio.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        value: your-django-secret-key
+      - key: DB_NAME
+        value: Portfolio
+      - key: DB_USER
+        value: root
+      - key: DB_PASSWORD
+        value: Khatri@25
+      - key: DB_HOST
+        value: localhost
+      - key: DB_PORT
+        value: 3306
