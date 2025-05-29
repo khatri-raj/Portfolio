@@ -4,6 +4,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     link = models.URLField(blank=True)
+    tech_stack = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -24,6 +25,7 @@ class Experience(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)  # null if still working
+    city = models.CharField(max_length=100, blank=True, null=True)  # ✅ new field
 
     def __str__(self):
         return f"{self.role} at {self.company}"
