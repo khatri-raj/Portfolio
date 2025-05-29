@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&qvmxj=%5au$x#*_mrqnm!fvi7fh4ks4#bak5e0x=)jd8$6gg!'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['yourdomain.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['portfolio-6li4.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'Portfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Profile', 'static', 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'Profile', 'frontend', 'static', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,10 +85,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # Load .env file
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
+        'NAME': os.getenv("DB_NAME", "Portfolio"),
+        'USER': os.getenv("DB_USER", "Portfolio"),
+        'PASSWORD': os.getenv("DB_PASSWORD", "Portfolio"),
+        'HOST': os.getenv("DB_HOST", "localhost"),
         'PORT': os.getenv("DB_PORT", "3306"),
     }
 }
@@ -135,12 +135,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS settings
-CORS_ALLOWED_ORIGINS = [
-    "https://portfolio-6li4.onrender.com",
-]
 CORS_ALLOW_ALL_ORIGINS = True
 
 STATICFILES_DIRS = [
     BASE_DIR / 'Profile' / 'static' / 'build' / 'static',  # static files from React build
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstati
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
