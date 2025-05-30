@@ -244,7 +244,7 @@ const HeroSection = ({ theme = "light" }) => {
           }
         `}
       </style>
-      <section id="home" className="hero-section" role="region" aria-label="Hero section">
+      <section id="home" className="hero-section" aria-label="Hero section">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0 }}
@@ -311,7 +311,8 @@ const HeroSection = ({ theme = "light" }) => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
           >
             <img
-              src="/your-photo.jpg"
+              // src="/your-photo.jpg"
+              src="http://192.168.1.3:3000/your-photo.jpg"
               alt="Raj, Full Stack Developer"
               onError={(e) => (e.target.src = "https://via.placeholder.com/400?text=Profile+Image")}
             />
